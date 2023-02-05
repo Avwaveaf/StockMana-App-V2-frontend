@@ -13,6 +13,7 @@ import {  SET_LOGIN } from './redux/slices/auth/authSlice';
 import { useEffect, useState } from 'react';
 import { GetLoginStatus } from './services/auth.services';
 import Loader from './components/loader/Loader.component';
+import AddProduct from './pages/addProduct/AddProduct.page';
 
 axios.defaults.withCredentials = true
 
@@ -53,6 +54,16 @@ function App() {
          
               <Layout>
                 <Dashboard />
+              </Layout>
+        
+          }
+        />
+        <Route
+          path='/add-product'
+          element={
+         
+              <Layout>
+                <AddProduct />
               </Layout>
         
           }
