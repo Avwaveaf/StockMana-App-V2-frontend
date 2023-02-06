@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header toggleHandler={onToggleHandler} />
-      <SideBar toggleCollapse={toggleCollapse} searchProductRoute={true}>
+      <SideBar toggleCollapse={toggleCollapse} toggleHandler={onToggleHandler } searchProductRoute>
         {children}
       </SideBar>
       <Footer />

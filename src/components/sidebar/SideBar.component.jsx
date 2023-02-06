@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { selectUsername, SET_LOGIN, SET_USERNAME } from '../../redux/slices/auth/authSlice';
 import { LogoutUser } from '../../services/auth.services';
 import Loader from '../loader/Loader.component';
-
+import {IoMdAdd } from "react-icons/io"
 
 const SideBar = ({
   children,
@@ -16,8 +16,10 @@ const SideBar = ({
   searchProductRoute,
   settingRoute,
   logoutRoute,
+  toggleHandler,
 }) => {
   const username = useSelector(selectUsername);
+  const location = useLocation()
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const handleLogout = async () => {
@@ -40,9 +42,9 @@ const SideBar = ({
     <>
       {isLoading && <Loader />}
 
-      <div className='flex w-full h-5/6 '>
+      <div className='flex w-full h-fit '>
         <div
-          className={`flex flex-col h-full p-3  lg:w-60  ${
+          className={`flex flex-col h-auto p-3 justify-around lg:w-60  ${
             toggleCollapse
               ? 'translate-x-0 w-full'
               : 'lg:-translate-x-60 -translate-x-full'
@@ -52,38 +54,16 @@ const SideBar = ({
             <div className='flex items-center justify-between'>
               <h2>Dashboard</h2>
             </div>
-            <div className='relative'>
-              <span className='absolute inset-y-0 left-0 flex items-center py-4'>
-                <button
-                  type='submit'
-                  className='p-2 focus:outline-none focus:ring'
-                >
-                  <svg
-                    fill='currentColor'
-                    viewBox='0 0 512 512'
-                    className='w-5 h-5 dark:text-gray-400'
-                  >
-                    <path d='M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z'></path>
-                  </svg>
-                </button>
-              </span>
-              <input
-                type='search'
-                name='Search'
-                placeholder='Search...'
-                className='w-full py-2 pl-10 text-sm dark:border-transparent rounded-md focus:outline-none dark:bg-gray-800 dark:text-gray-100 focus:dark:bg-gray-900'
-                wtx-context='198B65F6-7427-4185-8E4C-29BCAEA6E635'
-              />
-            </div>
+
             <div className='flex-1 '>
               <ul className='pt-2 pb-5 space-y-1 text-sm'>
                 <li
                   className={`rounded-sm ${
-                    homeRoute && 'dark:bg-gray-800 dark:text-gray-50'
+                    location.pathname ==="/dashboard" && 'dark:bg-gray-800 dark:text-gray-50'
                   }`}
                 >
                   <Link
-                   
+                  onClick={toggleHandler }
                     to='/dashboard'
                     className='flex items-center p-2 space-x-3 rounded-md'
                   >
@@ -99,7 +79,7 @@ const SideBar = ({
                 </li>
                 <li
                   className={`rounded-sm ${
-                    searchProductRoute && 'dark:bg-gray-800 dark:text-gray-50'
+                    location.pathname==="/search" && 'dark:bg-gray-800 dark:text-gray-50'
                   }`}
                 >
                   <a
@@ -119,21 +99,15 @@ const SideBar = ({
                 </li>
                 <li
                   className={`rounded-sm ${
-                    addProductRoute && 'dark:bg-gray-800 dark:text-gray-50'
+                    location.pathname === "/add-product" && 'dark:bg-gray-800 dark:text-gray-50'
                   }`}
                 >
                   <Link
-                    
+                    onClick={toggleHandler }
                     to='/add-product'
                     className='flex items-center p-2 space-x-3 rounded-md'
                   >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      viewBox='0 0 512 512'
-                      className='w-5 h-5 fill-current dark:text-gray-400'
-                    >
-                      <path d='M453.122,79.012a128,128,0,0,0-181.087.068l-15.511,15.7L241.142,79.114l-.1-.1a128,128,0,0,0-181.02,0l-6.91,6.91a128,128,0,0,0,0,181.019L235.485,449.314l20.595,21.578.491-.492.533.533L276.4,450.574,460.032,266.94a128.147,128.147,0,0,0,0-181.019ZM437.4,244.313,256.571,425.146,75.738,244.313a96,96,0,0,1,0-135.764l6.911-6.91a96,96,0,0,1,135.713-.051l38.093,38.787,38.274-38.736a96,96,0,0,1,135.765,0l6.91,6.909A96.11,96.11,0,0,1,437.4,244.313Z'></path>
-                    </svg>
+                    <IoMdAdd size={ 20} />
                     <span>Add Product</span>
                   </Link>
                 </li>
@@ -205,7 +179,7 @@ const SideBar = ({
               </ul>
             </div>
           </div>
-          <div className='flex items-center p-2 mt-12 space-x-4 justify-self-end'>
+          <div className='flex items-center  p-2 mt-12 space-x-4 justify-self-end'>
             <img
               src='https://source.unsplash.com/100x100/?portrait'
               alt=''
@@ -229,8 +203,8 @@ const SideBar = ({
         <main
           className={`flex w-auto ${
             toggleCollapse
-              ? 'translate-x-0 lg:block hidden '
-              : 'lg:-translate-x-60  -translate-x-60 '
+              ? 'translate-x-20 lg:block hidden opacity-60'
+              : 'lg:-translate-x-20  -translate-x-20 '
           }`}
         >
           {children}

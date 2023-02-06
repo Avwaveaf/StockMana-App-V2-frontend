@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { GetLoginStatus } from './services/auth.services';
 import Loader from './components/loader/Loader.component';
 import AddProduct from './pages/addProduct/AddProduct.page';
+import ProductDetail from './components/product/ProductDetail.component';
 
 axios.defaults.withCredentials = true
 
@@ -64,6 +65,16 @@ function App() {
          
               <Layout>
                 <AddProduct />
+              </Layout>
+        
+          }
+        />
+        <Route
+          path='/products/:id'
+          element={
+         
+              <Layout>
+                <ProductDetail />
               </Layout>
         
           }
