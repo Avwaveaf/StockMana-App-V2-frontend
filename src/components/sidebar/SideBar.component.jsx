@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { selectUser, selectUsername, SET_LOGIN, SET_USERNAME } from '../../redux/slices/auth/authSlice';
+import {
+  selectUser,
+  selectUsername,
+  SET_LOGIN,
+  SET_USERNAME,
+} from '../../redux/slices/auth/authSlice';
 import { LogoutUser } from '../../services/auth.services';
 import Loader from '../loader/Loader.component';
-import {IoMdAdd } from "react-icons/io"
+import { IoMdAdd } from 'react-icons/io';
 
 const SideBar = ({
   children,
@@ -19,20 +24,19 @@ const SideBar = ({
   toggleHandler,
 }) => {
   const username = useSelector(selectUsername);
-  const user = useSelector(selectUser)
-  const location = useLocation()
+  const user = useSelector(selectUser);
+  const location = useLocation();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const handleLogout = async () => {
     setIsLoading(true);
     try {
       const res = await LogoutUser();
-      console.log(res)
+      console.log(res);
       await dispatch(SET_LOGIN(false));
-      await dispatch(SET_USERNAME(""));
-    
+      await dispatch(SET_USERNAME(''));
+
       setIsLoading(false);
-      
     } catch (error) {
       setIsLoading(false);
       toast.error(error.message);
@@ -43,7 +47,7 @@ const SideBar = ({
     <>
       {isLoading && <Loader />}
 
-      <div className='flex w-full h-fit  '>
+      <div className='flex w-full h-fit  justify-center'>
         <div
           className={`flex flex-col p-3 lg:w-60  ${
             toggleCollapse
@@ -60,11 +64,12 @@ const SideBar = ({
               <ul className='pt-2 pb-5 space-y-1 text-sm'>
                 <li
                   className={`rounded-sm ${
-                    location.pathname ==="/dashboard" && 'dark:bg-gray-800 dark:text-gray-50'
+                    location.pathname === '/dashboard' &&
+                    'dark:bg-gray-800 dark:text-gray-50'
                   }`}
                 >
                   <Link
-                  onClick={toggleHandler }
+                    onClick={toggleHandler}
                     to='/dashboard'
                     className='flex items-center p-2 space-x-3 rounded-md'
                   >
@@ -80,11 +85,11 @@ const SideBar = ({
                 </li>
                 <li
                   className={`rounded-sm ${
-                    location.pathname==="/search" && 'dark:bg-gray-800 dark:text-gray-50'
+                    location.pathname === '/search' &&
+                    'dark:bg-gray-800 dark:text-gray-50'
                   }`}
                 >
                   <Link
-              
                     to='/products'
                     className='flex items-center p-2 space-x-3 rounded-md'
                   >
@@ -100,15 +105,16 @@ const SideBar = ({
                 </li>
                 <li
                   className={`rounded-sm ${
-                    location.pathname === "/add-product" && 'dark:bg-gray-800 dark:text-gray-50'
+                    location.pathname === '/add-product' &&
+                    'dark:bg-gray-800 dark:text-gray-50'
                   }`}
                 >
                   <Link
-                    onClick={toggleHandler }
+                    onClick={toggleHandler}
                     to='/add-product'
                     className='flex items-center p-2 space-x-3 rounded-md'
                   >
-                    <IoMdAdd size={ 20} />
+                    <IoMdAdd size={20} />
                     <span>Add Product</span>
                   </Link>
                 </li>
@@ -160,9 +166,8 @@ const SideBar = ({
                     logoutRoute && 'dark:bg-gray-800 dark:text-gray-50'
                   }`}
                 >
-                  <a
-                    rel='noopener noreferrer'
-                    href='/login'
+                  <Link
+                    to='/login'
                     className='flex items-center p-2 space-x-3 rounded-md'
                     onClick={handleLogout}
                   >
@@ -175,14 +180,14 @@ const SideBar = ({
                       <rect width='32' height='64' x='256' y='232'></rect>
                     </svg>
                     <span>Logout</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
           </div>
           <div className='flex items-center  p-2 mt-12 space-x-4 justify-self-end'>
             <img
-              src={user.imageUrl }
+              src={user.imageUrl}
               alt='user'
               className='w-12 h-12 rounded-lg dark:bg-gray-500'
             />
@@ -190,9 +195,8 @@ const SideBar = ({
               <h2 className='text-lg font-semibold'>{username}</h2>
               <span className='flex items-center space-x-1'>
                 <Link
-                  to="/profile"
+                  to='/profile'
                   className='text-xs hover:underline dark:text-gray-400'
-                
                 >
                   View profile
                 </Link>

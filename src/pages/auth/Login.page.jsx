@@ -28,7 +28,7 @@ const Login = () => {
       setIsLoading(true)
     try {
       const res = await LoginUser(formData)
-
+      console.log(res.data)
         await dispatch(SET_LOGIN(true))
       await dispatch(SET_USERNAME(res.data.name))
       await dispatch(SET_USER(res.data))

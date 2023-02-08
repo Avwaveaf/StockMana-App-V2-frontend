@@ -73,3 +73,12 @@ export const GetUserData = async () => {
         return toast.error(error.response.data.message)
     }
 };
+// update profikle
+export const UpdateProfile = async (payload) => { 
+    try {
+        const res = await axios.patch(`${BACKEND_URL}/update-profile`,payload)
+        return res.data
+    } catch (error) {
+        return toast.error(error.response.data.message)
+    }
+};

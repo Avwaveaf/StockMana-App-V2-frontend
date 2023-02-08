@@ -27,11 +27,11 @@ const authSlice = createSlice({
       state.username = action.payload
     },
     SET_USER(state, action) { 
-      const { username,bio,imageUrl,email,phone} = action.payload
-      state.user.username = username
+      const { name,bio,imageUrl,emailAddress,phone} = action.payload
+      state.user.username = name
       state.user.bio = bio
       state.user.imageUrl = imageUrl
-      state.user.email = email
+      state.user.email = emailAddress
       state.user.phone = phone
     },
 

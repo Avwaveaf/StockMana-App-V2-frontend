@@ -19,6 +19,7 @@ import NotFound404 from './pages/404page/NotFound404.page';
 import EditProduct from './pages/editProduct/EditProduct.page';
 import Profile from './pages/profile/Profile.page';
 import ProductList from './components/productList/ProductList.component';
+import EditProfile from './pages/editProfile/EditProfile.page';
 
 axios.defaults.withCredentials = true
 
@@ -109,6 +110,16 @@ function App() {
          
               <Layout>
                 <ProductList />
+              </Layout>
+        
+          }
+        />
+        <Route
+          path='/profile/edit'
+          element={
+         
+              <Layout>
+                <EditProfile />
               </Layout>
         
           }

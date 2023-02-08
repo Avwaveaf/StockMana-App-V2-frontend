@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useRedirectLoggedOut from '../../components/customHook/useRedirectLoggedOut.component';
 import Loader from '../../components/loader/Loader.component';
-import ProductList from '../../components/productList/ProductList.component';
 import { selectIsLoggedIn } from '../../redux/slices/auth/authSlice';
 import MyChart from '../../components/chart/Chart.component';
 import {
