@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   asyncDeleteSingleProduct,
@@ -9,8 +9,9 @@ import {
 } from '../../redux/slices/product/productSlice';
 import SearchBar from '../searchBar/SearchBar.component';
 
-const ProductList = ({ products }) => {
+const ProductList = () => {
   const dispatch = useDispatch();
+  const products = useSelector(state=>state.product.products)
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm,setSearchTerm] = useState('')
   const deleteProducthandler = async (id) => {
@@ -18,7 +19,7 @@ const ProductList = ({ products }) => {
     await dispatch(asyncGetProductHandler());
   };
 
-
+  
   const onSearchChangeHandler = (e) => {
     setSearchTerm(e.target.value)
   }

@@ -62,11 +62,8 @@ const Dashboard = () => {
 
 
   return (
-    <div className='py-5  h-fit'>
+    <div className='py-5  w-full  h-fit'>
       {isLoading && <Loader />}
-      <div>
-        <MyChart chartData={chartData } />
-      </div>
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }} >
         <Masonry className='py-5'>
           <div className='p-1'>
@@ -133,8 +130,10 @@ const Dashboard = () => {
 
         </Masonry>
       </ResponsiveMasonry>
+      <div>
+        <MyChart chartData={chartData } />
+      </div>
 
-      <ProductList products={products} />
     </div>
   );
 };

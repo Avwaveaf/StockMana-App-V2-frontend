@@ -18,6 +18,7 @@ import ProductDetail from './components/product/ProductDetail.component';
 import NotFound404 from './pages/404page/NotFound404.page';
 import EditProduct from './pages/editProduct/EditProduct.page';
 import Profile from './pages/profile/Profile.page';
+import ProductList from './components/productList/ProductList.component';
 
 axios.defaults.withCredentials = true
 
@@ -98,6 +99,16 @@ function App() {
          
               <Layout>
                 <Profile />
+              </Layout>
+        
+          }
+        />
+        <Route
+          path='/products'
+          element={
+         
+              <Layout>
+                <ProductList />
               </Layout>
         
           }
