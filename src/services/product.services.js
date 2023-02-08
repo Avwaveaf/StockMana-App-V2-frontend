@@ -18,6 +18,11 @@ export const DeleteSingleProduct = async (id) => {
         const res = await axios.delete(`${BACKEND_URL}/${id}`)
         return res
 };
+// update single proudct
+export const UpdateSingleProduct = async (id,formData) => { 
+        const res = await axios.patch(`${BACKEND_URL}/${id}`,formData)
+        return res
+};
 // get single proudct
 export const GetSingleProduct = async (id) => { 
         const res = await axios.get(`${BACKEND_URL}/${id}`)

@@ -7,7 +7,6 @@ import {
   asyncDeleteSingleProduct,
   asyncGetProductHandler,
 } from '../../redux/slices/product/productSlice';
-import QuickViewModal from '../quickViewModal/QuickViewModal';
 import SearchBar from '../searchBar/SearchBar.component';
 
 const ProductList = ({ products }) => {
@@ -111,6 +110,7 @@ const ProductList = ({ products }) => {
                 </button>
          
                 <Link to={`/products/${product._id}`}>See the detail</Link>
+                <Link to={`/products/edit/${product._id}`}>Edit</Link>
                 </div>
      
        

@@ -15,6 +15,9 @@ import { GetLoginStatus } from './services/auth.services';
 import Loader from './components/loader/Loader.component';
 import AddProduct from './pages/addProduct/AddProduct.page';
 import ProductDetail from './components/product/ProductDetail.component';
+import NotFound404 from './pages/404page/NotFound404.page';
+import EditProduct from './pages/editProduct/EditProduct.page';
+import Profile from './pages/profile/Profile.page';
 
 axios.defaults.withCredentials = true
 
@@ -79,6 +82,27 @@ function App() {
         
           }
         />
+        <Route
+          path='/products/edit/:id'
+          element={
+         
+              <Layout>
+                <EditProduct />
+              </Layout>
+        
+          }
+        />
+        <Route
+          path='/profile'
+          element={
+         
+              <Layout>
+                <Profile />
+              </Layout>
+        
+          }
+        />
+        <Route path="*" element={ <NotFound404/>} />
       </Routes>
     </BrowserRouter>
   );

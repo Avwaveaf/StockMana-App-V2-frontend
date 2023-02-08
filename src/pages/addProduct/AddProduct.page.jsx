@@ -17,7 +17,7 @@ const initialState = {
 
 const AddProduct = () => {
   const [product, setProduct] = useState(initialState);
-  const [productImage, setProductImage] = useState('');
+  const [productImage, setProductImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [description, setDescription] = useState('');
   const isLoading = useSelector(selectIsLoading);
@@ -54,7 +54,7 @@ const AddProduct = () => {
     formData.append('imageUrl', productImage);
 
     await dispatch(asyncCreateProductHandler(formData));
-    // navigate('/dashboard');
+    navigate('/dashboard');
   };
   return (
       <div>

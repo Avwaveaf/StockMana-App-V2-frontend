@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { selectUsername, SET_LOGIN, SET_USERNAME } from '../../redux/slices/auth/authSlice';
+import { selectUser, selectUsername, SET_LOGIN, SET_USERNAME } from '../../redux/slices/auth/authSlice';
 import { LogoutUser } from '../../services/auth.services';
 import Loader from '../loader/Loader.component';
 import {IoMdAdd } from "react-icons/io"
@@ -19,6 +19,7 @@ const SideBar = ({
   toggleHandler,
 }) => {
   const username = useSelector(selectUsername);
+  const user = useSelector(selectUser)
   const location = useLocation()
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -181,21 +182,20 @@ const SideBar = ({
           </div>
           <div className='flex items-center  p-2 mt-12 space-x-4 justify-self-end'>
             <img
-              src='https://source.unsplash.com/100x100/?portrait'
-              alt=''
+              src={user.imageUrl }
+              alt='user'
               className='w-12 h-12 rounded-lg dark:bg-gray-500'
             />
             <div>
               <h2 className='text-lg font-semibold'>{username}</h2>
               <span className='flex items-center space-x-1'>
-                <a
-                  rel='noopener noreferrer'
-                  href='/'
+                <Link
+                  to="/profile"
                   className='text-xs hover:underline dark:text-gray-400'
                 
                 >
                   View profile
-                </a>
+                </Link>
               </span>
             </div>
           </div>

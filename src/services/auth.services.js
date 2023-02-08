@@ -64,3 +64,12 @@ export const GetLoginStatus = async () => {
         return toast.error(error.response.data.message)
     }
 };
+// get user data
+export const GetUserData = async () => { 
+    try {
+        const res = await axios.get(`${BACKEND_URL}/get-user`)
+        return res.data
+    } catch (error) {
+        return toast.error(error.response.data.message)
+    }
+};

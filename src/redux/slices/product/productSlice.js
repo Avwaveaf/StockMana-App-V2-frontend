@@ -5,6 +5,7 @@ import {
   DeleteSingleProduct,
   GetAllProduct,
   GetSingleProduct,
+  UpdateSingleProduct,
 } from '../../../services/product.services';
 
 const initialState = {
@@ -16,7 +17,9 @@ const initialState = {
   message: '',
   totalStoreValue: 0,
   totalQuantity:0,
-  totalProductQuantity:0
+  totalProductQuantity: 0,
+  productSold: 0,
+  percentageSold:0
 };
 
 //create new product
@@ -36,6 +39,17 @@ export const asyncGetProductHandler = createAsyncThunk(
   async (thunkAPI) => {
     try {
       return await GetAllProduct();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+//Get all product
+export const asyncUpdataSingleProduct = createAsyncThunk(
+  'products/updateProduct',
+  async ({id,formData },thunkAPI) => {
+    try {
+      return await UpdateSingleProduct(id,formData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
@@ -102,7 +116,24 @@ const productSlice = createSlice({
     },
     CALC_INVENTORY_QUANTITY(state) { 
       state.totalQuantity =state.products.length
-    }
+    },
+    CALC_PRODUCT_SOLD(state,action) { 
+      const products = action.payload;
+      const array = [];
+      products.map((item) => {
+        const {  soldCount } = item;
+        const productQuantity = soldCount;
+        return array.push(productQuantity);
+      });
+      const totalSold = array.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      state.productSold = totalSold;
+    },
+    CALC_PERCENTAGE_SOLD(state) {
+      state.percentageSold = (state.productSold / state.totalProductQuantity) * 100
+      state.percentageSold = state.percentageSold.toFixed(2);
+     }
   },
   extraReducers: (builder) =>
     builder
@@ -166,6 +197,7 @@ const productSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
+        
         state.product = payload.data.data
       })
       .addCase(asyncGetSingleProduct.rejected, (state, action) => {
@@ -174,13 +206,34 @@ const productSlice = createSlice({
         state.isError = true;
         toast.error(action.payload);
       })
+      .addCase(asyncUpdataSingleProduct.pending, (state) => {
+        // get single product thunk
+        state.isLoading = true;
+      })
+      .addCase(asyncUpdataSingleProduct.fulfilled, (state, { payload }) => {
+        // get single product thunk
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success("Product updated successfully")
+        
+      })
+      .addCase(asyncUpdataSingleProduct.rejected, (state, action) => {
+        // get single product thunk
+        state.isLoading = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
 });
 
-export const { CALC_STORE_VALUE,CALC_INVENTORY_PRODUCT_QUANTITY,CALC_INVENTORY_QUANTITY } = productSlice.actions;
+export const { CALC_STORE_VALUE,CALC_INVENTORY_PRODUCT_QUANTITY,CALC_INVENTORY_QUANTITY,CALC_PRODUCT_SOLD,CALC_PERCENTAGE_SOLD } = productSlice.actions;
 
 export const selectIsLoading = (state) => state.product.isLoading;
 export const selectTotalStoreValue = (state) => state.product.totalStoreValue;
 export const selectTotaQuantity = (state) => state.product.totalQuantity;
 export const selectTotalProductQuantity = (state) => state.product.totalProductQuantity;
+export const selectSingleProduct = state => state.product.product
+export const selectMessage = state => state.product.message
+export const selectIsError = state=>state.product.isError
 
 export default productSlice.reducer;
