@@ -6,12 +6,12 @@ import Register from './pages/auth/Register.page';
 import ResetPwd from './pages/auth/ResetPwd.page';
 import Dashboard from './pages/dashboard/Dashboard.page';
 import Home from './pages/home/Home.page';
-import axios from 'axios'
+import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import {  selectIsLoggedIn, SET_LOGIN } from './redux/slices/auth/authSlice';
+import { selectIsLoggedIn, SET_LOGIN } from './redux/slices/auth/authSlice';
 import { useEffect, useState } from 'react';
-import {  GetLoginStatus } from './services/auth.services';
+import { GetLoginStatus } from './services/auth.services';
 import Loader from './components/loader/Loader.component';
 import AddProduct from './pages/addProduct/AddProduct.page';
 import ProductDetail from './components/product/ProductDetail.component';
@@ -23,133 +23,158 @@ import EditProfile from './pages/editProfile/EditProfile.page';
 import ChangePassword from './pages/changePassword/ChangePassword.page';
 import ContactUs from './pages/contactUs/ContactUs.page';
 
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 
 function App() {
-  const [isLoading,setIsLoading] = useState(false) 
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(selectIsLoggedIn)
-  useEffect(() => { 
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  useEffect(() => {
     const getLoginStatus = async () => {
-
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const isLoggedIn = await GetLoginStatus()
-        await dispatch(SET_LOGIN(isLoggedIn))
-        setIsLoading(false)
+        const isLoggedIn = await GetLoginStatus();
+        await dispatch(SET_LOGIN(isLoggedIn));
+        setIsLoading(false);
       } catch (error) {
-        setIsLoading(false)
-    
+        setIsLoading(false);
       }
-    }
-    getLoginStatus()
-  }, [dispatch])
-  
+    };
+    getLoginStatus();
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
-    { isLoading && <Loader/>}
-    <Toaster />
+      {isLoading && <Loader />}
+      <Toaster />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
-        {
-          isLoggedIn?        <Route path='/login' element={<Dashboard />} />:        <Route path='/login' element={<Login />} />
-        }
-
-        <Route path='/register' element={<Register />} />
-        <Route path='/forgot-password' element={<ForgotPwd />} />
-        <Route path='/reset-password/:resetToken' element={<ResetPwd />} />
-        <Route
-          path='/dashboard'
-          element={
-         
+        {isLoggedIn ? (
+          <Route
+            path='/login'
+            element={
               <Layout>
                 <Dashboard />
               </Layout>
-        
+            }
+          />
+        ) : (
+          <Route path='/login' element={<Login />} />
+        )}
+        {isLoggedIn ? (
+          <Route
+            path='/register'
+            element={
+              <Layout>
+                <Dashboard />
+              </Layout>
+            }
+          />
+        ) : (
+          <Route path='/register' element={<Register />} />
+        )}
+        {isLoggedIn ? (
+          <Route
+          path='/forgot-password'
+            element={
+              <Layout>
+                <Dashboard />
+              </Layout>
+            }
+          />
+        ) : (
+          <Route path='/forgot-password' element={<ForgotPwd />} />
+        )}
+        {isLoggedIn ? (
+          <Route
+          path='/reset-password/:resetToken'
+            element={
+              <Layout>
+                <Dashboard />
+              </Layout>
+            }
+          />
+        ) : (
+            
+        <Route path='/reset-password/:resetToken' element={<ResetPwd />} />
+        )}
+
+    
+   
+        <Route
+          path='/dashboard'
+          element={
+            <Layout>
+              <Dashboard />
+            </Layout>
           }
         />
         <Route
           path='/add-product'
           element={
-         
-              <Layout>
-                <AddProduct />
-              </Layout>
-        
+            <Layout>
+              <AddProduct />
+            </Layout>
           }
         />
         <Route
           path='/products/:id'
           element={
-         
-              <Layout>
-                <ProductDetail />
-              </Layout>
-        
+            <Layout>
+              <ProductDetail />
+            </Layout>
           }
         />
         <Route
           path='/products/edit/:id'
           element={
-         
-              <Layout>
-                <EditProduct />
-              </Layout>
-        
+            <Layout>
+              <EditProduct />
+            </Layout>
           }
         />
         <Route
           path='/profile'
           element={
-         
-              <Layout>
-                <Profile />
-              </Layout>
-        
+            <Layout>
+              <Profile />
+            </Layout>
           }
         />
         <Route
           path='/products'
           element={
-         
-              <Layout>
-                <ProductList />
-              </Layout>
-        
+            <Layout>
+              <ProductList />
+            </Layout>
           }
         />
         <Route
           path='/profile/edit'
           element={
-         
-              <Layout>
-                <EditProfile />
-              </Layout>
-        
+            <Layout>
+              <EditProfile />
+            </Layout>
           }
         />
         <Route
           path='/profile/change-password'
           element={
-         
-              <Layout>
-                <ChangePassword />
-              </Layout>
-        
+            <Layout>
+              <ChangePassword />
+            </Layout>
           }
         />
         <Route
           path='/contact-us'
           element={
-         
-              <Layout>
-                <ContactUs />
-              </Layout>
-        
+            <Layout>
+              <ContactUs />
+            </Layout>
           }
         />
-        <Route path="*" element={ <NotFound404/>} />
+        <Route path='*' element={<NotFound404 />} />
       </Routes>
     </BrowserRouter>
   );
