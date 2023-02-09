@@ -21,6 +21,7 @@ import Profile from './pages/profile/Profile.page';
 import ProductList from './components/productList/ProductList.component';
 import EditProfile from './pages/editProfile/EditProfile.page';
 import ChangePassword from './pages/changePassword/ChangePassword.page';
+import ContactUs from './pages/contactUs/ContactUs.page';
 
 axios.defaults.withCredentials = true
 
@@ -131,6 +132,16 @@ function App() {
          
               <Layout>
                 <ChangePassword />
+              </Layout>
+        
+          }
+        />
+        <Route
+          path='/contact-us'
+          element={
+         
+              <Layout>
+                <ContactUs />
               </Layout>
         
           }
