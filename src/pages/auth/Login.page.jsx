@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from '../../components/authForm/AuthForm.component';
 import toast from 'react-hot-toast';
@@ -14,7 +14,7 @@ const initialState = {
 };
 
 const Login = () => {
-  useRedirectLogin("/dashboard")
+  const isLoggedIn = useSelector(state=>state.auth.isLoggedIn)
   const [isLoading,setIsLoading] = useState(false) 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,8 +45,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    
-   },[])
+    if (isLoggedIn) {
+      navigate("/dashboard")
+     }
+   },[isLoggedIn,navigate])
 
   return (
     <>

@@ -9,7 +9,7 @@ import Home from './pages/home/Home.page';
 import axios from 'axios'
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import {  SET_LOGIN } from './redux/slices/auth/authSlice';
+import {  selectIsLoggedIn, SET_LOGIN } from './redux/slices/auth/authSlice';
 import { useEffect, useState } from 'react';
 import {  GetLoginStatus } from './services/auth.services';
 import Loader from './components/loader/Loader.component';
@@ -28,7 +28,7 @@ axios.defaults.withCredentials = true
 function App() {
   const [isLoading,setIsLoading] = useState(false) 
   const dispatch = useDispatch();
-  
+  const isLoggedIn = useSelector(selectIsLoggedIn)
   useEffect(() => { 
     const getLoginStatus = async () => {
 
@@ -52,7 +52,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
-        <Route path='/login' element={<Login />} />
+        {
+          isLoggedIn?        <Route path='/login' element={<Dashboard />} />:        <Route path='/login' element={<Login />} />
+        }
+
         <Route path='/register' element={<Register />} />
         <Route path='/forgot-password' element={<ForgotPwd />} />
         <Route path='/reset-password/:resetToken' element={<ResetPwd />} />
