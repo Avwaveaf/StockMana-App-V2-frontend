@@ -11,7 +11,7 @@ import { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import {  SET_LOGIN } from './redux/slices/auth/authSlice';
 import { useEffect, useState } from 'react';
-import { GetLoginStatus } from './services/auth.services';
+import {  GetLoginStatus } from './services/auth.services';
 import Loader from './components/loader/Loader.component';
 import AddProduct from './pages/addProduct/AddProduct.page';
 import ProductDetail from './components/product/ProductDetail.component';
@@ -20,6 +20,7 @@ import EditProduct from './pages/editProduct/EditProduct.page';
 import Profile from './pages/profile/Profile.page';
 import ProductList from './components/productList/ProductList.component';
 import EditProfile from './pages/editProfile/EditProfile.page';
+import ChangePassword from './pages/changePassword/ChangePassword.page';
 
 axios.defaults.withCredentials = true
 
@@ -120,6 +121,16 @@ function App() {
          
               <Layout>
                 <EditProfile />
+              </Layout>
+        
+          }
+        />
+        <Route
+          path='/profile/change-password'
+          element={
+         
+              <Layout>
+                <ChangePassword />
               </Layout>
         
           }

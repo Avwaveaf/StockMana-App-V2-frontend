@@ -47,7 +47,7 @@ const SideBar = ({
     <>
       {isLoading && <Loader />}
 
-      <div className='flex w-full h-fit  justify-center'>
+      <div className='flex w-full h-fit '>
         <div
           className={`flex flex-col p-3 lg:w-60  ${
             toggleCollapse
@@ -205,10 +205,10 @@ const SideBar = ({
           </div>
         </div>
         <main
-          className={`flex w-full ${
+          className={`flex w-screen lg:w-full ${
             toggleCollapse
               ? 'translate-x-20 lg:block hidden opacity-60'
-              : 'lg:-translate-x-20  -translate-x-20 '
+              : 'lg:-translate-x-20  -translate-x-48 '
           }`}
         >
           {children}

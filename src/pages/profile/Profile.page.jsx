@@ -85,7 +85,7 @@ const Profile = () => {
                   <div className='p-8 flex flex-col'>
                   <Link to="/profile/edit" className='p-3 hover:bg-gray-100 '>Edit profile</Link>
                
-                  <Link to="/" className='p-3 hover:bg-gray-100 '>Change Password</Link>
+                  <Link to="/profile/change-password" className='p-3 hover:bg-gray-100 '>Change Password</Link>
                   </div>
              
         </div>

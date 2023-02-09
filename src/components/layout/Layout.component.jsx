@@ -13,7 +13,10 @@ const Layout = ({ children }) => {
     <>
       <Header toggleHandler={onToggleHandler} />
       <SideBar toggleCollapse={toggleCollapse} toggleHandler={onToggleHandler } searchProductRoute>
-        {children}
+      
+        
+      {children}
+
       </SideBar>
       <Footer />
     </>

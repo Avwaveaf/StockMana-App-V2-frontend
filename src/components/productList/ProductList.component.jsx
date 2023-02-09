@@ -72,8 +72,8 @@ const ProductList = () => {
 
 
   return (
-    <section className='text-gray-600 body-font h-fit'>
-      <div className='flex flex-col container px-2 py-10 mx-auto'>
+    <section className='flex text-gray-600 body-font  h-fit'>
+      <div className='flex flex-col  lg:container px-2 py-10'>
         <div className='flex flex-wrap w-full mb-20'>
           <div className='lg:w-1/2 w-full mb-6 lg:mb-0'>
             <h1 className='sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900'>

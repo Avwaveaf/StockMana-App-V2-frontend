@@ -82,3 +82,12 @@ export const UpdateProfile = async (payload) => {
         return toast.error(error.response.data.message)
     }
 };
+// Change password
+export const ChangePasswordHandler = async (payload) => { 
+    try {
+        const res = await axios.patch(`${BACKEND_URL}/change-password`,payload)
+        return res.data
+    } catch (error) {
+        return toast.error(error.response.data.message)
+    }
+};
