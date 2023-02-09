@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   selectUser,
   selectUsername,
@@ -28,15 +28,15 @@ const SideBar = ({
   const location = useLocation();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
   const handleLogout = async () => {
     setIsLoading(true);
     try {
-      const res = await LogoutUser();
-      console.log(res);
+       await LogoutUser();
       await dispatch(SET_LOGIN(false));
       await dispatch(SET_USERNAME(''));
-
       setIsLoading(false);
+      navigate("/login")
     } catch (error) {
       setIsLoading(false);
       toast.error(error.message);
@@ -166,8 +166,8 @@ const SideBar = ({
                     logoutRoute && 'dark:bg-gray-800 dark:text-gray-50'
                   }`}
                 >
-                  <Link
-                    to='/login'
+                  <div
+                    
                     className='flex items-center p-2 space-x-3 rounded-md'
                     onClick={handleLogout}
                   >
@@ -180,7 +180,7 @@ const SideBar = ({
                       <rect width='32' height='64' x='256' y='232'></rect>
                     </svg>
                     <span>Logout</span>
-                  </Link>
+                  </div>
                 </li>
               </ul>
             </div>

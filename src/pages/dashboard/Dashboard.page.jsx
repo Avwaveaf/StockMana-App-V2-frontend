@@ -129,7 +129,8 @@ const Dashboard = () => {
 
         </Masonry>
       </ResponsiveMasonry>
-      <div>
+      <div className='flex flex-col'>
+        <h1>Analytics</h1>
         <MyChart chartData={chartData } />
       </div>
 
