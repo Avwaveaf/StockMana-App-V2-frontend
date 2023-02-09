@@ -8,7 +8,7 @@ import Dashboard from './pages/dashboard/Dashboard.page';
 import Home from './pages/home/Home.page';
 import axios from 'axios'
 import { Toaster } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {  SET_LOGIN } from './redux/slices/auth/authSlice';
 import { useEffect, useState } from 'react';
 import {  GetLoginStatus } from './services/auth.services';
